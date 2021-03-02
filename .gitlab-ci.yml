@@ -7,7 +7,7 @@ test:
         - cargo test --workspace --verbose
 
 pages:
-    stage: production
+    stage: deploy
     script:
         - cargo doc --no-deps
         - mkdir public
