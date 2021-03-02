@@ -1,0 +1,21 @@
+[package]
+name = "luna_nbt"
+description = "Another Libary Minecraft's Named Binary Tag (NBT) format."
+version = "0.0.1"
+authors = ["Sam Huddart <sam.fucked.up@samh.dev>"]
+edition = "2018"
+
+[lib]
+name = "nbt"
+path = "src/lib.rs"
+bench = false
+
+[features]
+with_serde = ["serde"]
+serde_boolean = []
+serde_unsigned = []
+default = ["with_serde", "serde_boolean"]
+
+[dependencies]
+byteorder = "1.4.2"
+serde = {version = "1.0.123", optional=true, features=["derive"] }
