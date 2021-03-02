@@ -20,7 +20,7 @@ serde_unsigned = []
 default = ["with_serde", "serde_boolean"]
 
 [dependencies]
-byteorder = "^1.4.3"
+byteorder = "^1.4.2"
 serde = {version = "^1.0.123", optional=true }
 
 [dev-dependencies]
