@@ -20,8 +20,8 @@ serde_unsigned = []
 default = ["with_serde", "serde_boolean"]
 
 [dependencies]
-byteorder = "1.4"
-serde = {version = "1.0", optional=true }
+byteorder = "^1.4"
+serde = {version = "^1.0.123", optional=true }
 
 [dev-dependencies]
-serde = {version = "1.0", features=["derive"] }
+serde = {version = "^1.0.123", features=["derive"] }
