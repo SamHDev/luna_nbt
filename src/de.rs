@@ -131,7 +131,7 @@ impl<'de> Deserializer<'de> for NBTDeserializer {
 
     fn deserialize_u64<V>(self, visitor: V) -> Result<<V as Visitor<'de>>::Value, Self::Error> where
         V: Visitor<'de> {
-        unsigned_type!(self, visitor, Long, TAG_Long, visit_u64, u32, "u64")
+        unsigned_type!(self, visitor, Long, TAG_Long, visit_u64, u64, "u64")
     }
 
     fn deserialize_f32<V>(self, visitor: V) -> Result<<V as Visitor<'de>>::Value, Self::Error> where
