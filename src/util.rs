@@ -1,15 +1,20 @@
 use crate::tags::Tag;
 use std::collections::HashMap;
 
+/// A trait to convert rust types into their respective NBT Tag.
 pub trait ToTag {
     fn into_tag(self) -> Tag;
 }
 
+/// A trait to convert NBT tags into rust types.
 pub trait FromTag: Sized {
     fn from_tag(tag: Tag) -> Option<Self>;
     fn from_borrowed_tag(tag: &Tag) -> Option<&Self>;
 }
 
+
+impl ToTag for Tag { fn into_tag(self) -> Tag { self }}
+impl FromTag for Tag { fn from_tag(tag: Tag) -> Option<Self> { Some(tag) } fn from_borrowed_tag(tag: &Tag) -> Option<&Self> { Some(&tag) } }
 
 impl ToTag for i8 { fn into_tag(self) -> Tag { Tag::Byte(self) } }
 impl ToTag for i16 { fn into_tag(self) -> Tag { Tag::Short(self) } }

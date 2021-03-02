@@ -4,23 +4,65 @@ use std::fmt;
 #[repr(u8)]
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 #[allow(non_camel_case_types)]
+/// The numerical representation of Tag types.
+///
+/// Used within the internal encode/decode process and hence is returned within errors.
 pub enum TagIdent {
+    /// ## TAG_End (0)
+    /// Signifies the end of a TAG_Compound. It is only ever used inside a TAG_Compound, and is not named despite being in a TAG_Compound
     TAG_End = 0,
+
+    /// ## TAG_Byte (1)
+    /// A single signed byte
     TAG_Byte = 1,
+
+    /// ## TAG_Short (2)
+    /// A single signed, big endian 16 bit integer
     TAG_Short = 2,
+
+    /// ## TAG_Int (3)
+    /// A single signed, big endian 32 bit integer
     TAG_Int = 3,
+
+    /// ## TAG_Long (4)
+    /// A single signed, big endian 64 bit integer
     TAG_Long = 4,
+
+    /// ## TAG_Float (5)
+    /// A single, big endian IEEE-754 single-precision floating point number (NaN possible)
     TAG_Float = 5,
+
+    /// ## TAG_Double (6)
+    /// A single, big endian IEEE-754 double-precision floating point number (NaN possible)
     TAG_Double = 6,
+
+    /// ## TAG_Byte_Array (7)
+    /// A length-prefixed array of signed bytes. The prefix is a signed integer (thus 4 bytes)
     TAG_Byte_Array = 7,
+
+    /// ## TAG_String (8)
+    /// A length-prefixed modified UTF-8 string. The prefix is an unsigned short (thus 2 bytes) signifying the length of the string in bytes
     TAG_String = 8,
+
+    /// ## TAG_List (9)
+    /// A list of nameless tags, all of the same type. The list is prefixed with the Type ID of the items it contains (thus 1 byte), and the length of the list as a signed integer (a further 4 bytes). If the length of the list is 0 or negative, the type may be 0 (TAG_End) but otherwise it must be any other type. (The notchian implementation uses TAG_End in that situation, but another reference implementation by Mojang uses 1 instead; parsers should accept any type if the length is <= 0).
     TAG_List = 9,
+
+    /// ## TAG_Compound (10)
+    /// Effectively a list of a named tags. Order is not guaranteed.
     TAG_Compound = 10,
+
+    /// ## TAG_Int_Array (11)
+    /// A length-prefixed array of signed integers. The prefix is a signed integer (thus 4 bytes) and indicates the number of 4 byte integers.
     TAG_Int_Array = 11,
-    TAG_Long_Array = 12
+
+    /// ## TAG_Long_Array (12)
+    /// A length-prefixed array of signed longs. The prefix is a signed integer (thus 4 bytes) and indicates the number of 8 byte longs.
+    TAG_Long_Array = 12,
 }
 
 impl TagIdent {
+    /// Parse a `u8` into a `TagIdent`
     pub fn parse(value: &u8) -> Option<TagIdent> {
         match value {
             0 => Some(TagIdent::TAG_End),
@@ -62,7 +104,8 @@ impl fmt::Display for TagIdent {
 }
 
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
+/// A NBT Tag, representing the 13 datatypes supported by the format.
 pub enum Tag {
     Byte(i8),
     Short(i16),
@@ -79,6 +122,7 @@ pub enum Tag {
 }
 
 impl Tag {
+    #[deprecated]
     pub fn id(&self) -> u8 {
         match &self {
             Tag::Byte(_) => 1,
@@ -96,6 +140,8 @@ impl Tag {
         }
     }
 
+    /// The `TagIdent` representation of a tag.
+    /// Used to identify the prefix of a type.
     pub fn ident(&self) -> TagIdent {
         match &self {
             Tag::Byte(_) => TagIdent::TAG_Byte,
