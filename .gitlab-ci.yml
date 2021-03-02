@@ -1,11 +1,13 @@
 image: "rust:latest"
 
-test:cargo:
-  script:
-    - rustc --version && cargo --version
-    - cargo test --workspace --verbose
+test:
+    stage: test
+    script:
+        - rustc --version && cargo --version
+        - cargo test --workspace --verbose
 
 pages:
+    stage: production
     script:
         - cargo doc --no-deps
         - mkdir public
