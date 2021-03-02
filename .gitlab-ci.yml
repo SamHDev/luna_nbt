@@ -4,12 +4,12 @@ test:
     stage: test
     script:
         - rustc --version && cargo --version
-        - cargo test --workspace --verbose
+        - cargo test --workspace --verbose --all-features --all
 
 pages:
     stage: deploy
     script:
-        - cargo doc --no-deps
+        - cargo doc --no-deps --all-features
         - mkdir public
         - mv target/doc/ public
     artifacts:
