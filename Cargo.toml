@@ -1,6 +1,6 @@
 [package]
 name = "luna_nbt"
-description = "Another Library Minecraft's Named Binary Tag (NBT) format."
+description = "Another library for Minecraft's Named Binary Tag (NBT) format."
 version = "0.0.2"
 keywords = ["nbt", "minecraft", "format", "serde", "binary"]
 authors = ["Sam Huddart <sam.fucked.up@samh.dev>"]
