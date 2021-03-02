@@ -164,8 +164,8 @@
 //! ```
 //!
 //! #### Serde Functions
-//! - `BLOB --> SERDE` [`decode(...)`](crate::decode)
-//! - `BLOB <-- SERDE` [`encode(...)`](crate::encode)
+//! - `BLOB --> SERDE` [`decode(...)`](crate::decode())
+//! - `BLOB <-- SERDE` [`encode(...)`](crate::encode())
 //! - `TAG --> SERDE` [`decode_tag(...)`](crate::decode_tag)
 //! - `TAG <-- SERDE` [`encode_tag(...)`](crate::encode_tag)
 //! - `BLOB --> SERDE + NAME` [`decode_named(...)`](crate::decode_named)
