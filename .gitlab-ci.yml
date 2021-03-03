@@ -11,7 +11,7 @@ pages:
     script:
         - cargo doc --no-deps --all-features
         - mkdir public
-        - mv target/doc/ public
+        - mv target/doc public
     artifacts:
         paths:
             - public
