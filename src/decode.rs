@@ -3,8 +3,6 @@ use std::collections::HashMap;
 use crate::{Tag, TagIdent};
 use byteorder::{ReadBytesExt, BE};
 use crate::error::{digest_io, NBTResult, NBTError};
-use cesu8::Cesu8DecodingError;
-use std::borrow::Cow;
 
 pub(crate) fn read_ident<R: Read>(reader: &mut R) -> NBTResult<TagIdent> {
     let byte = digest_io(reader.read_u8())?;
@@ -42,7 +40,7 @@ pub(crate) fn read_string<R: Read>(reader: &mut R) -> NBTResult<String> {
 
     let buffer = read_size(reader, length)?;
 
-    decode_wonky_string(buffer)
+    decode_wonky_string(&buffer)
 }
 
 pub(crate) fn read_compound<R: Read>(reader: &mut R) -> NBTResult<HashMap<String, Tag>> {
@@ -154,6 +152,6 @@ pub fn read_tag<R: Read>(reader: &mut R, ident: &TagIdent) -> NBTResult<Tag> {
 pub (crate) fn decode_wonky_string(b: &[u8]) -> NBTResult<String> {
     match cesu8::from_java_cesu8(&b) {
         Ok(s) => Ok(s.to_string()),
-        Err(e) => Err(NBTError::StringError)
+        Err(_) => Err(NBTError::StringError)
     }
 }
