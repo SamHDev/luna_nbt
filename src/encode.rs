@@ -111,7 +111,7 @@ pub(crate) fn ensure_list_integrity(list: &Vec<Tag>) -> NBTResult<TagIdent> {
 // Strings are written the same way multiple times so this function exists.
 pub(crate) fn write_string<W: Write>(writer: &mut W, string: &str) -> NBTResult<()> {
     // Get the UTF-8 bytes of the string
-    let bytes = string.as_bytes();
+    let bytes = encode_wonky_string(string);
 
     // Write length of string
     digest_io(writer.write_u16::<BE>(bytes.len() as u16))?;
@@ -145,4 +145,8 @@ pub(crate) fn write_compound<W: Write>(writer: &mut W, compound: &HashMap<String
         write_tag(writer, payload)?;
     }
     digest_io(writer.write_u8(TagIdent::TAG_End as u8))
+}
+
+pub (crate) fn encode_wonky_string(s: &str) -> Vec<u8> {
+    cesu8::to_java_cesu8(&s).to_vec()
 }

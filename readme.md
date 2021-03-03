@@ -26,7 +26,7 @@ This crate is __yet__ another implementation of the NBT format.
 Place one of the following in your `Cargo.Toml` file:
 ```toml
 # Stable(ish)
-luna_nbt = "0.0.1"
+luna_nbt = "0.0.3"
 
 # Master/Dev
 git = "https://github.com/samhdev/luna_nbt"

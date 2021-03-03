@@ -3,8 +3,10 @@ use std::collections::HashMap;
 use crate::{Tag, TagIdent};
 use byteorder::{ReadBytesExt, BE};
 use crate::error::{digest_io, NBTResult, NBTError};
+use cesu8::Cesu8DecodingError;
+use std::borrow::Cow;
 
-pub fn read_ident<R: Read>(reader: &mut R) -> NBTResult<TagIdent> {
+pub(crate) fn read_ident<R: Read>(reader: &mut R) -> NBTResult<TagIdent> {
     let byte = digest_io(reader.read_u8())?;
     match TagIdent::parse(&byte) {
         Some(x) => Ok(x),
@@ -26,7 +28,7 @@ pub fn read_root<R: Read>(reader: &mut R) -> NBTResult<(String, HashMap<String, 
 
 }
 
-pub fn read_size<R: Read, S: Into<usize>>(reader: &mut R, size: S) -> NBTResult<Vec<u8>> {
+pub(crate) fn read_size<R: Read, S: Into<usize>>(reader: &mut R, size: S) -> NBTResult<Vec<u8>> {
     let size = size.into();
     let mut buffer = Vec::with_capacity(size.clone());
     for _ in 0..size {
@@ -35,18 +37,15 @@ pub fn read_size<R: Read, S: Into<usize>>(reader: &mut R, size: S) -> NBTResult<
     Ok(buffer)
 }
 
-pub fn read_string<R: Read>(reader: &mut R) -> NBTResult<String> {
+pub(crate) fn read_string<R: Read>(reader: &mut R) -> NBTResult<String> {
     let length = digest_io(reader.read_u16::<BE>())?;
 
     let buffer = read_size(reader, length)?;
 
-    match String::from_utf8(buffer) {
-        Ok(s) => Ok(s),
-        Err(e) => Err(NBTError::StringError { error: e })
-    }
+    decode_wonky_string(buffer)
 }
 
-pub fn read_compound<R: Read>(reader: &mut R) -> NBTResult<HashMap<String, Tag>> {
+pub(crate) fn read_compound<R: Read>(reader: &mut R) -> NBTResult<HashMap<String, Tag>> {
     let mut compound = HashMap::new();
     loop {
         let ident = read_ident(reader)?;
@@ -149,5 +148,12 @@ pub fn read_tag<R: Read>(reader: &mut R, ident: &TagIdent) -> NBTResult<Tag> {
             }
             Ok(Tag::LongArray(array))
         }
+    }
+}
+
+pub (crate) fn decode_wonky_string(b: &[u8]) -> NBTResult<String> {
+    match cesu8::from_java_cesu8(&b) {
+        Ok(s) => Ok(s.to_string()),
+        Err(e) => Err(NBTError::StringError)
     }
 }
