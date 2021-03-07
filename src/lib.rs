@@ -178,11 +178,15 @@ pub(crate) mod encode;
 pub(crate) mod decode;
 pub(crate) mod front;
 pub(crate) mod util;
+pub(crate) mod compound;
+pub(crate) mod map;
 
 pub use util::{FromTag, ToTag};
 pub use front::{NBTWrite, NBTRead};
-pub use blob::Blob;
 pub use tags::{TagIdent, Tag};
+pub use blob::Blob;
+pub use compound::Compound;
+
 
 #[cfg(test)]
 pub mod tests;
@@ -191,6 +195,8 @@ pub mod tests;
 mod ser;
 #[cfg(feature="with_serde")]
 mod de;
+mod list;
+
 
 #[cfg(feature="with_serde")]
 pub use front::{encode, encode_named, encode_tag, decode, decode_named, decode_tag};
