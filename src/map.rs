@@ -1,6 +1,5 @@
 use crate::{Tag, ToTag, FromTag};
 use std::collections::HashMap;
-use std::collections::hash_map::RandomState;
 
 pub trait Map: Sized {
     fn _inner_insert(&mut self, key: String, item: Tag) -> Option<Tag>;

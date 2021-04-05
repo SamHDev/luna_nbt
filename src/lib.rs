@@ -179,7 +179,7 @@ pub(crate) mod decode;
 pub(crate) mod front;
 pub(crate) mod util;
 pub(crate) mod compound;
-pub(crate) mod map;
+// pub(crate) mod map;
 
 pub use util::{FromTag, ToTag};
 pub use front::{NBTWrite, NBTRead};
@@ -195,7 +195,8 @@ pub mod tests;
 mod ser;
 #[cfg(feature="with_serde")]
 mod de;
-mod list;
+
+// mod list;
 
 
 #[cfg(feature="with_serde")]
