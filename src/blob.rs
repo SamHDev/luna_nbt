@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use crate::util::{ToTag, FromTag};
 
 #[cfg_attr(feature="debug", derive(Debug))]
-#[cfg_attr(feature="clone", derive(Clone))]
+#[derive(Clone)]
 /// A NBT Document containing an implicit compound and root name.
 ///
 /// ## Example
@@ -69,7 +69,7 @@ impl Blob {
     /// # assert_eq!(none, None)
     /// ```
     pub fn get<T: FromTag>(&self, name: &str) -> Option<&T> where Self: Sized {
-        T::from_borrowed_tag(self.elements.get(&name.to_string())?.clone())
+        T::from_borrowed_tag(self.elements.get(&name.to_string())?)
     }
 
     /// Get the NBT blob as a compound tag.

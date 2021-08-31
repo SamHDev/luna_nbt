@@ -17,7 +17,6 @@
 //! - `serde_boolean`     (default) converts booleans to bytes during serialisation and deserialization.
 //! - `serde_unsigned`    converts unsigned to their signed counterparts during serialisation and deserialization.
 //! - `debug`             (default) debug for tags and blobs
-//! - `clone`             (default) clone for tags and blobs
 //! - `arrays`            utils for writing byte, int and long arrays. (dev branch)
 //! - `compression`       gzip and DEFLATE support. (dev branch)
 //!

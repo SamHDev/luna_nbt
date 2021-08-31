@@ -20,7 +20,6 @@ This crate is __yet__ another implementation of the NBT format.
 - `serde_boolean`     (default) converts booleans to bytes during serialisation and deserialization.
 - `serde_unsigned`    converts unsigned to their signed counterparts during serialisation and deserialization.
 - `debug`             (default) debug trait impl for tags and blobs
-- `clone`             (default) clone trait impl for tags and blobs
 - `arrays`            utils for writing byte, int and long arrays. (dev branch)
 - `compression`       gzip and DEFLATE support. (dev branch)
 
@@ -28,7 +27,7 @@ This crate is __yet__ another implementation of the NBT format.
 Place one of the following in your `Cargo.Toml` file:
 ```toml
 # Stable(ish)
-luna_nbt = "0.0.3"
+luna_nbt = "0.0.4"
 
 # Master/Dev
 git = "https://github.com/samhdev/luna_nbt"

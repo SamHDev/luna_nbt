@@ -105,9 +105,8 @@ impl fmt::Display for TagIdent {
 }
 
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone)]
 #[cfg_attr(feature="debug", derive(Debug))]
-#[cfg_attr(feature="clone", derive(Clone))]
 /// A NBT Tag, representing the 13 datatypes supported by the format.
 pub enum Tag {
     Byte(i8),

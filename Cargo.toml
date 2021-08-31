@@ -17,8 +17,7 @@ bench = false
 serde_boolean = []
 serde_unsigned = []
 debug = []
-clone = []
-default = ["serde", "serde_boolean", "debug", "clone"]
+default = ["serde", "serde_boolean", "debug"]
 
 [dependencies]
 byteorder = "^1.4.2"
