@@ -13,9 +13,10 @@
 //! - Ability to read/write from a socket or buffer.
 //!
 //! ### Cargo Features
-//! - `with_serde`        (default) includes Serde serialisation and deserialization support.
-//! - `serde_boolean`     converts booleans to bytes during serialisation and deserialization.
+//! - `serde`             (default) includes Serde serialisation and deserialization support.
+//! - `serde_boolean`     (default) converts booleans to bytes during serialisation and deserialization.
 //! - `serde_unsigned`    converts unsigned to their signed counterparts during serialisation and deserialization.
+//! - `debug`             (default) debug for tags
 //! - `arrays`            utils for writing byte, int and long arrays. (dev branch)
 //! - `compression`       gzip and DEFLATE support. (dev branch)
 //!
