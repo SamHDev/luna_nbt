@@ -191,13 +191,13 @@ pub use compound::Compound;
 #[cfg(test)]
 pub mod tests;
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 mod ser;
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 mod de;
 
 // mod list;
 
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 pub use front::{encode, encode_named, encode_tag, decode, decode_named, decode_tag};

@@ -3,7 +3,7 @@ use std::ops::Deref;
 use std::collections::HashMap;
 use crate::util::{ToTag, FromTag};
 
-#[derive(Debug)]
+#[cfg_attr(feature="debug", derive(Debug))]
 /// A NBT Document containing an implicit compound and root name.
 ///
 /// ## Example

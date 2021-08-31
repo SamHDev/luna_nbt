@@ -46,16 +46,16 @@ impl fmt::Display for NBTError {
 
 impl std::error::Error for NBTError {}
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 use serde::{ser::Error as SerializeError, de::Error as DeserializeError};
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 impl SerializeError for NBTError {
     fn custom<T>(msg: T) -> Self where T: fmt::Display {
         Self::Custom(msg.to_string())
     }
 }
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 impl DeserializeError for NBTError {
     fn custom<T>(msg: T) -> Self where T: fmt::Display {
         Self::Custom(msg.to_string())

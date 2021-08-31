@@ -4,11 +4,16 @@ use crate::tags::Tag;
 use crate::encode::{write_tag, write_root};
 use crate::blob::Blob;
 use crate::decode::{read_tag, read_ident, read_root};
-use serde::Serialize;
-use crate::ser::NBTSerializer;
 use crate::TagIdent;
+
+#[cfg(feature="serde")]
+use serde::Serialize;
+#[cfg(feature="serde")]
 use serde::de::DeserializeOwned;
+#[cfg(feature="serde")]
 use crate::de::NBTDeserializer;
+#[cfg(feature="serde")]
+use crate::ser::NBTSerializer;
 
 /// A trait supporting encoding of NBT Tags/Blobs into bytes.
 pub trait NBTWrite {
@@ -62,7 +67,7 @@ impl NBTRead for Blob {
     }
 }
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 /// Encode a Serde serializable value into a NBT Tag.
 ///
 /// ### Example
@@ -104,7 +109,7 @@ pub fn encode_tag<T: Serialize>(o: &T) -> NBTResult<Option<Tag>> {
 /// # assert_eq!(tag.compound(), Tag::Compound(test));
 /// ```
 ///
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 pub fn encode_named<T: Serialize>(o: &T, name: &str) -> NBTResult<Blob> {
     match encode_tag(o)? {
         Some(tag) => if let Tag::Compound(map) = tag {
@@ -117,7 +122,7 @@ pub fn encode_named<T: Serialize>(o: &T, name: &str) -> NBTResult<Blob> {
     }
 }
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 /// Encode a Serde serializable value into a NBT Blob with a empty root name.
 ///
 /// Encode a Serde serializable value into a NBT Blob with a given root name.
@@ -157,7 +162,7 @@ pub fn encode<T: Serialize>(o: &T) -> NBTResult<Blob> {
     encode_named(o, "")
 }
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 /// Decode a NBT Tag into a Serde deserializable value.
 ///
 /// ### Example
@@ -177,7 +182,7 @@ pub fn decode_tag<T: DeserializeOwned>(tag: Tag) -> NBTResult<T> {
 }
 
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 /// Decode a NBT Blob into a Serde deserializable value.
 ///
 /// ### Example
@@ -204,7 +209,7 @@ pub fn decode<T: DeserializeOwned>(tag: Blob) -> NBTResult<T> {
     T::deserialize(NBTDeserializer::some(Tag::Compound(tag.elements)))
 }
 
-#[cfg(feature="with_serde")]
+#[cfg(feature= "serde")]
 /// Decode a NBT Blob into a Serde deserializable value and the given root name.
 ///
 /// ### Example

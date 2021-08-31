@@ -2,7 +2,8 @@ use std::collections::HashMap;
 use std::fmt;
 
 #[repr(u8)]
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
+#[derive(Clone, PartialOrd, PartialEq)]
+#[cfg_attr(feature="debug", derive(Debug))]
 #[allow(non_camel_case_types)]
 /// The numerical representation of Tag types.
 ///
@@ -104,7 +105,8 @@ impl fmt::Display for TagIdent {
 }
 
 
-#[derive(Debug, PartialEq)]
+#[derive(PartialEq)]
+#[cfg_attr(feature="debug", derive(Debug))]
 /// A NBT Tag, representing the 13 datatypes supported by the format.
 pub enum Tag {
     Byte(i8),
