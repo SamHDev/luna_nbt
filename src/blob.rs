@@ -4,6 +4,7 @@ use std::collections::HashMap;
 use crate::util::{ToTag, FromTag};
 
 #[cfg_attr(feature="debug", derive(Debug))]
+#[derive(Clone)]
 /// A NBT Document containing an implicit compound and root name.
 ///
 /// ## Example
